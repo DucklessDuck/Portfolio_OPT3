@@ -6,23 +6,21 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {
-    Task task;
-
-    @BeforeEach
-    void setUp(){
-        task = new Task("TestTaak", 1, 0);
-    }
-
-    @Test
-    public void initTest() {
-        assertEquals(0,task.getHoursTask());
-        assertEquals(null, task.getTaskName());
-    }
+    Task taskTest;
 
 
     @Test
-    public void addFirstTask(){
-        task.addTask(task.getTaskName(), task.getHoursTask());
+    public void checkTaskTest(){
+        taskTest = new Task("firstTestTask", 10);
+        assertFalse(taskTest.checkTask(taskTest));
+        taskTest.editTaskTime(0);
+        taskTest.editPassedTime(2);
+        assertFalse(taskTest.checkTask(taskTest));
+        taskTest.editTaskTime(100);
+        taskTest.editPassedTime(100);
+        assertTrue(taskTest.checkTask(taskTest));
     }
+
+
 
 }
