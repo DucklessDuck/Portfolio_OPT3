@@ -8,7 +8,7 @@ public class Task {
     private String taskName;
     private int requiredTime;
     private int taskNumber;
-    private static int UniqueTaskNumber = 0;
+    private static int uniqueTaskNumber = 0;
 
     public Task(String taskName){
         this.taskName = taskName;
@@ -24,9 +24,18 @@ public class Task {
         this.taskNumber = getUniqueTaskNumber();
     }
 
+    public void setTaskName(String taskName){
+        this.taskName = taskName;
+    }
+
+    //Haalt de naam van de taak op
+    public String getTaskName(){
+        return taskName;
+    }
+
     // Aanmaken unieknummer voor nieuwe taak
     public int getUniqueTaskNumber(){
-        return UniqueTaskNumber++;
+        return uniqueTaskNumber++;
     }
 
     //  Nummer van taak ophalen
@@ -35,13 +44,8 @@ public class Task {
     }
 
     // Toevoegen van benodigde uren
-    public void editTaskTime(int requiredTime){
+    public void setTaskTime(int requiredTime){
         this.requiredTime = requiredTime;
-    }
-
-    //Haalt de naam van de taak op
-    public String getTaskName(){
-        return taskName;
     }
 
     public void editPassedTime(int actualTime){
@@ -49,7 +53,7 @@ public class Task {
     }
 
     //Haalt de gemaakte uren op
-    public int getHoursTask(){
+    public int getHoursPassed(){
         return secondsPassed;
     }
 
@@ -60,9 +64,9 @@ public class Task {
 
     public Boolean checkTask(Task task){
        if(getRequiredTime() != 0) {
-           return (task.getRequiredTime() <= task.getHoursTask());
+           return (task.getRequiredTime() <= task.getHoursPassed());
        }
-       else return false;
+       else return null;
     }
 
 
