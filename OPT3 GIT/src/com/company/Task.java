@@ -1,42 +1,73 @@
 package com.company;
 
+import java.util.ArrayList;
+
 public class Task {
 
     private int secondsPassed;
     private String taskName;
     private int requiredTime;
+    private int taskNumber;
+    private static int uniqueTaskNumber = 0;
 
-    public Task(String taskName, int requiredTime, int secondsPassed){
-
+    public Task(String taskName){
+        this.taskName = taskName;
+        this.requiredTime = 0;
+        this.secondsPassed = 0;
+        this.taskNumber = getUniqueTaskNumber();
     }
 
-    //voegt een taak toe
-    public void addTask(String taskName){
-
+    public Task(String taskName, int requiredTime){
+        this.taskName = taskName;
+        this.requiredTime = requiredTime;
+        this.secondsPassed = 0;
+        this.taskNumber = getUniqueTaskNumber();
     }
 
-    // voegt een taak toe met de benodigde uren
-    public void addTask(String taskName, int requiredTime){
+    public void setTaskName(String taskName){
+        this.taskName = taskName;
     }
 
-    // verwijdert de gekozen taak
-    public void removeTask(String taskName){
-    }
-
+    //Haalt de naam van de taak op
     public String getTaskName(){
         return taskName;
     }
 
-    //Haalt de gemaakte uren op van een bepaalde taak
-    public int getHoursTask(){
+    // Aanmaken unieknummer voor nieuwe taak
+    public int getUniqueTaskNumber(){
+        return uniqueTaskNumber++;
+    }
+
+    //  Nummer van taak ophalen
+    public int getTaskNumber(){
+        return taskNumber;
+    }
+
+    // Toevoegen van benodigde uren
+    public void setTaskTime(int requiredTime){
+        this.requiredTime = requiredTime;
+    }
+
+    public void editPassedTime(int actualTime){
+        secondsPassed = actualTime;
+    }
+
+    //Haalt de gemaakte uren op
+    public int getHoursPassed(){
         return secondsPassed;
     }
 
-    // Haalt de gemaakte uren op van alle taken
-    public int getTotalHours(){
-        return 0;
+    //Haalt de benodigde uren op
+    public int getRequiredTime(){
+        return requiredTime;
     }
 
+    public Boolean checkTask(Task task){
+       if(getRequiredTime() != 0) {
+           return (task.getRequiredTime() <= task.getHoursPassed());
+       }
+       else return null;
+    }
 
 
 }
