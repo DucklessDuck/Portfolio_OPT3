@@ -7,14 +7,13 @@ public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
 
     public void Display() {
-
+        //...
     }
 
     // Maakt de taak aan en voegt de taak toe aan de tasklist
-    public void createTask(Task task) {
+    public void addTask(Task task) {
         taskList.add(task);
     }
-
 
     // Verwijdert de gekozen taak
     public void removeTask(Task task) {
@@ -35,7 +34,11 @@ public class TaskList {
 
     // Haalt de gemaakte uren op van alle taken
     public int getTotalHours() {
-        return 0;
+        int totalHours = 0;
+        for(Task task : taskList){
+            totalHours += task.getHoursPassed();
+        }
+        return totalHours;
     }
 
     // Haalt de taak op uit de lijst
@@ -44,8 +47,27 @@ public class TaskList {
             if (task.getTaskNumber() == taskNumber) {
                 return task;
             }
+
         }
         return null;
+    }
+
+    //checkt de status van de taak
+    public Boolean checkStatusTask(Task task){
+        if(task.getRequiredTime() < task.getHoursPassed()) {
+            statusDone = true;
+            return statusDone;
+        }
+
+        else if(task.getHoursPassed() == task.getRequiredTime()){
+            statusDone = true;
+            return statusDone;
+        }
+
+        else {
+            statusDone = false;
+            return statusDone;
+        }
     }
 
 }

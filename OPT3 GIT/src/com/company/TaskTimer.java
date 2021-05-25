@@ -40,7 +40,7 @@ public class TaskTimer{
         }
     }
 
-    // pauzeert de timer van een bepaalde taak
+    // Pauzeert de timer van een bepaalde taak
     public void pauseTimer() {
         System.out.println("""
                 De timer op pauze zetten?
@@ -74,6 +74,7 @@ public class TaskTimer{
     public long getTimeInMinutes(){
         long totalSeconds = elapsedTime / 1000;
         long totalMinutes = totalSeconds / 60;
+
         System.out.println("Aantal gewerkte minuten = " + totalMinutes);
         return totalMinutes;
     }
