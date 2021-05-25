@@ -9,7 +9,7 @@ class TaskTest {
     Task taskTest;
 
 
-    @Test
+   /* @Test
     public void checkTaskTest(){
         taskTest = new Task("firstTestTask", 10);
         assertFalse(taskTest.checkTask(taskTest));
@@ -21,6 +21,6 @@ class TaskTest {
         assertTrue(taskTest.checkTask(taskTest));
     }
 
-
+*/
 
 }
