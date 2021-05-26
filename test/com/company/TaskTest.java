@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class TaskTest {
     Task taskTest;
 
-
     @Test
     public void checkTaskTest(){
         taskTest = new Task("firstTestTask", 10);
@@ -20,7 +19,4 @@ class TaskTest {
         taskTest.editPassedTime(100);
         assertTrue(taskTest.checkTask(taskTest));
     }
-
-
-
 }
