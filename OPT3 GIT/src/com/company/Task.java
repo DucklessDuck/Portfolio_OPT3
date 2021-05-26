@@ -29,6 +29,13 @@ public class Task {
         this.taskNumber = getUniqueTaskNumber();
     }
 
+    public Boolean checkTask(Task task){
+        if(getRequiredTime() != 0) {
+            return (task.getRequiredTime() <= getHoursPassed());
+        }
+        else return false;
+    }
+
 
 
     public void setTaskName(String taskName){
@@ -53,6 +60,11 @@ public class Task {
     // Toevoegen van benodigde uren
     public void setTaskTime(int requiredTime){
         this.requiredTime = requiredTime;
+    }
+
+    //toevoegen van gewerkte uren
+    public void setHoursPassed(int hoursPassed){
+        this.hoursPassed = hoursPassed;
     }
 
     //Haalt de gemaakte uren op
