@@ -1,10 +1,12 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TaskList {
     private Boolean statusDone;
     private ArrayList<Task> taskList = new ArrayList<>();
+    Scanner scanner = new Scanner(System.in);
 
     public void Display() {
         //...
@@ -47,27 +49,48 @@ public class TaskList {
             if (task.getTaskNumber() == taskNumber) {
                 return task;
             }
-
+            else{
+                return null;
+            }
         }
         return null;
     }
+
+    // aanmaken en toevoegen van een taak met alleen een naam
+    public void createTask(String taskName){
+        if(taskName.replaceAll("\\s", "").length() != 0){
+            Task task = new Task(taskName);
+            addTask(task);
+        }
+        else{
+            System.out.println("De taak heeft geen naam");
+        }
+    }
+
+    // aanmaken en toevoegen van een taak met naam en benodigde tijd
+    public void createTask(String taskName, int requiredTime){
+        if(taskName.length() != 0 && requiredTime != 0) {
+            Task task = new Task(taskName, requiredTime);
+            addTask(task);
+        }
+    }
+
+    // aanmaken en toevoegen van een taak met naam, benodigde tijd en al gewerkte tijd
+    public void createTask(String taskName, int requiredTime, int hoursPassed){
+        if(taskName.length() != 0 && requiredTime != 0 && hoursPassed != 0){
+            Task task = new Task(taskName, requiredTime, hoursPassed);
+            addTask(task);
+        }
+    }
+
 
     //checkt de status van de taak
     public Boolean checkStatusTask(Task task){
         if(task.getRequiredTime() < task.getHoursPassed()) {
             statusDone = true;
-            return statusDone;
         }
-
-        else if(task.getHoursPassed() == task.getRequiredTime()){
-            statusDone = true;
-            return statusDone;
-        }
-
-        else {
-            statusDone = false;
-            return statusDone;
-        }
+        else statusDone = task.getHoursPassed() == task.getRequiredTime();
+        return statusDone;
     }
 
 }
