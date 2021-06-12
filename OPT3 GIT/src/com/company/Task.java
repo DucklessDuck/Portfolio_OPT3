@@ -1,33 +1,29 @@
 package com.company;
 
-public class Task {
+public abstract class Task {
 
     private long hoursPassed;
     private String taskName;
     private int requiredTime;
     private int taskNumber;
-    private static int uniqueTaskNumber = 0;
 
-    public Task(String taskName){
+
+    public Task(String taskName, int taskNumber){
         this.taskName = taskName;
         this.requiredTime = 0;
         this.hoursPassed = 0;
-        this.taskNumber = getUniqueTaskNumber();
+        this.taskNumber = taskNumber;
     }
 
-    public Task(String taskName, int requiredTime){
+    public Task(String taskName, int requiredTime, int taskNumber){
         this.taskName = taskName;
         this.requiredTime = requiredTime;
         this.hoursPassed = 0;
-        this.taskNumber = getUniqueTaskNumber();
+        this.taskNumber = taskNumber;
     }
 
-    public Task(String taskName, int requiredTime, int hoursPassed){
-        this.taskName = taskName;
-        this.requiredTime = requiredTime;
-        this.hoursPassed = hoursPassed;
-        this.taskNumber = getUniqueTaskNumber();
-    }
+    public abstract String getNameTask();
+
 
     public Boolean checkTask(Task task){
         if(getRequiredTime() != 0) {
@@ -36,20 +32,19 @@ public class Task {
         else return false;
     }
 
-
-
     public void setTaskName(String taskName){
         this.taskName = taskName;
     }
 
     //Haalt de naam van de taak op
     public String getTaskName(){
-        return taskName;
-    }
-
-    // Aanmaken unieknummer voor nieuwe taak
-    public int getUniqueTaskNumber(){
-        return uniqueTaskNumber++;
+        if(this instanceof TaskSchool){
+            return "Taaknaam: " + taskName + getNameTask();
+        }
+        else if(this instanceof TaskWork){
+            return "Taaknaam: " + taskName + getNameTask();
+        }
+        return "Taaknaam: " + taskName;
     }
 
     //  Nummer van taak ophalen
@@ -58,7 +53,7 @@ public class Task {
     }
 
     // Toevoegen van benodigde uren
-    public void setTaskTime(int requiredTime){
+    public void setRequiredTime(int requiredTime){
         this.requiredTime = requiredTime;
     }
 

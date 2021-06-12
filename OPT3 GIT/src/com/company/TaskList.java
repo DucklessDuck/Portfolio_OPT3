@@ -6,10 +6,14 @@ import java.util.Scanner;
 public class TaskList {
     private Boolean statusDone;
     private ArrayList<Task> taskList = new ArrayList<>();
+    private static int uniqueTaskNumber = 0;
+
     Scanner scanner = new Scanner(System.in);
 
-    public void Display() {
-        //...
+    public void display() {
+        for(Task task : taskList){
+            System.out.println(task.getTaskName() + "\nTaakNr: " + task.getTaskNumber());
+        }
     }
 
     // Maakt de taak aan en voegt de taak toe aan de tasklist
@@ -32,6 +36,11 @@ public class TaskList {
                 System.out.println("Taak niet gevonden.");
             }
         }
+    }
+
+    // Aanmaken unieknummer voor nieuwe taak
+    public int getUniqueTaskNumber(){
+        return uniqueTaskNumber++;
     }
 
     // Haalt de gemaakte uren op van alle taken
@@ -57,9 +66,14 @@ public class TaskList {
     }
 
     // aanmaken en toevoegen van een taak met alleen een naam
-    public void createTask(String taskName){
-        if(taskName.replaceAll("\\s", "").length() != 0){
-            Task task = new Task(taskName);
+    public void createTaskWork(String taskName, Boolean whichTask){
+        if(taskName.replaceAll("\\s", "").length() != 0 && whichTask){
+
+            Task task = new TaskWork(taskName, getUniqueTaskNumber());
+            addTask(task);
+        }
+        else if(taskName.replaceAll("\\s", "").length() != 0 && !whichTask){
+            Task task = new TaskWork(taskName, getUniqueTaskNumber());
             addTask(task);
         }
         else{
@@ -68,21 +82,29 @@ public class TaskList {
     }
 
     // aanmaken en toevoegen van een taak met naam en benodigde tijd
-    public void createTask(String taskName, int requiredTime){
-        if(taskName.length() != 0 && requiredTime != 0) {
-            Task task = new Task(taskName, requiredTime);
+    public void createTaskSchool(String taskName,String subject, Boolean whichTask){
+
+        int requiredTime = 0;
+
+        System.out.println("Heeft u benodigde uren? J/N: ");
+        String keuze = scanner.nextLine();
+        if(keuze.equalsIgnoreCase("j")) {
+            System.out.println("Hoeveel uren?: ");
+            requiredTime = scanner.nextInt();
+            scanner.nextLine();
+        }
+        if(taskName.replaceAll("\\s", "").length() != 0 && whichTask){
+            Task task = new TaskSchool(taskName, subject, getUniqueTaskNumber());
             addTask(task);
         }
-    }
-
-    // aanmaken en toevoegen van een taak met naam, benodigde tijd en al gewerkte tijd
-    public void createTask(String taskName, int requiredTime, int hoursPassed){
-        if(taskName.length() != 0 && requiredTime != 0 && hoursPassed != 0){
-            Task task = new Task(taskName, requiredTime, hoursPassed);
+        else if(taskName.replaceAll("\\s", "").length() != 0 && !whichTask){
+            Task task = new TaskSchool(taskName, subject, requiredTime, getUniqueTaskNumber());
             addTask(task);
         }
+        else{
+            System.out.println("De taak heeft geen naam");
+        }
     }
-
 
     //checkt de status van de taak
     public Boolean checkStatusTask(Task task){
