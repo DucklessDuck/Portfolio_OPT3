@@ -91,7 +91,6 @@ public class TaskList {
 
     // aanmaken en toevoegen van een Schooltaak
     public void createTaskSchool(String taskName,String subject){
-
         int requiredTime = 0;
 
         System.out.println("Heeft u benodigde uren? J/N: ");
