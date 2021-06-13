@@ -1,4 +1,4 @@
-package com.company;
+package timer;
 
 import java.util.ArrayList;
 import java.util.Scanner;

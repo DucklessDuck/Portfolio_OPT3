@@ -1,4 +1,4 @@
-package com.company;
+package timer;
 
 public abstract class Task {
 

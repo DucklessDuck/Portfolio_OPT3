@@ -1,4 +1,4 @@
-package com.company;
+package timer;
 
 public class TaskSchool extends Task{
     String subject;
