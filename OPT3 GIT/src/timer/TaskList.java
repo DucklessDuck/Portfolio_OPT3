@@ -67,15 +67,8 @@ public class TaskList {
 
     // aanmaken en toevoegen van een Werktaak
     public void createTaskWork(String taskName){
-        int requiredTime = 0;
+        int requiredTime = askRequiredTime();
 
-        System.out.println("Heeft u benodigde uren? J/N: ");
-        String keuze = scanner.nextLine();
-        if(keuze.equalsIgnoreCase("j")) {
-            System.out.println("Hoeveel uren?: ");
-            requiredTime += scanner.nextInt();
-            scanner.nextLine();
-        }
         if(taskName.replaceAll("\\s", "").length() != 0 && requiredTime == 0){
             Task task = new TaskWork(taskName, getUniqueTaskNumber());
             addTask(task);
@@ -90,26 +83,31 @@ public class TaskList {
     }
 
     // aanmaken en toevoegen van een Schooltaak
-    public void createTaskSchool(String taskName,String subject){
-        int requiredTime = 0;
+    public void createTaskSchool(String taskName, String subject){
+        int requiredTime = askRequiredTime();
 
-        System.out.println("Heeft u benodigde uren? J/N: ");
-        String keuze = scanner.nextLine();
-        if(keuze.equalsIgnoreCase("j")) {
-            System.out.println("Hoeveel uren?: ");
-            requiredTime = scanner.nextInt();
-            scanner.nextLine();
-        }
         if(taskName.replaceAll("\\s", "").length() != 0 && requiredTime == 0){
             Task task = new TaskSchool(taskName, subject, getUniqueTaskNumber());
             addTask(task);
         }
-        else if(taskName.replaceAll("\\s", "").length() != 0 && requiredTime != 0){
-            Task task = new TaskSchool(taskName, subject, requiredTime, getUniqueTaskNumber());
+        else if(taskName.replaceAll("\\s", "").length() != 0 && requiredTime > 0){
+            Task task = new TaskSchool(taskName, subject,  requiredTime, getUniqueTaskNumber());
             addTask(task);
         }
         else{
             System.out.println("De taak heeft geen naam");
+        }
+    }
+
+    public int askRequiredTime(){
+        System.out.println("Heeft u benodigde uren? J/N: ");
+        String keuze = scanner.nextLine();
+        if(keuze.equalsIgnoreCase("j")) {
+            System.out.println("Hoeveel uren?: ");
+            return scanner.nextInt();
+        }
+        else{
+            return 0;
         }
     }
 

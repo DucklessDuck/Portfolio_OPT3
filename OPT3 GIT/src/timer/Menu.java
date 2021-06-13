@@ -31,6 +31,7 @@ public class Menu {
             if(keuze == 3){
                 taskList.display();
             }
+
             if(keuze == 6){
                 loop = false;
                 System.out.println("Programma wordt afgesloten, BYE!");
