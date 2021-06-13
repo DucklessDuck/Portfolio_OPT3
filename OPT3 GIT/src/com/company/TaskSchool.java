@@ -9,13 +9,17 @@ public class TaskSchool extends Task{
     }
 
     public TaskSchool(String taskName, String subject, int requiredTime, int taskNumber) {
-        super(taskName, requiredTime);
+        super(taskName, requiredTime, taskNumber);
+        this.subject = subject;
         setRequiredTime(0);
     }
 
+    public String getTaskSubject(){
+        return subject;
+    }
 
     @Override
-    public String getNameTask() {
+    public String prepareGetNameTask() {
         return  " (School)";
     }
 

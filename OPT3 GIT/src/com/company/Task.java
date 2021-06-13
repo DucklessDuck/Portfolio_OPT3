@@ -22,7 +22,7 @@ public abstract class Task {
         this.taskNumber = taskNumber;
     }
 
-    public abstract String getNameTask();
+    public abstract String prepareGetNameTask();
 
 
     public Boolean checkTask(Task task){
@@ -39,10 +39,10 @@ public abstract class Task {
     //Haalt de naam van de taak op
     public String getTaskName(){
         if(this instanceof TaskSchool){
-            return "Taaknaam: " + taskName + getNameTask();
+            return "Taaknaam: " + taskName + prepareGetNameTask();
         }
         else if(this instanceof TaskWork){
-            return "Taaknaam: " + taskName + getNameTask();
+            return "Taaknaam: " + taskName + prepareGetNameTask();
         }
         return "Taaknaam: " + taskName;
     }

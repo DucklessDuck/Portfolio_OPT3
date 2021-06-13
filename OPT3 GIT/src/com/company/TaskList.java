@@ -12,7 +12,7 @@ public class TaskList {
 
     public void display() {
         for(Task task : taskList){
-            System.out.println(task.getTaskName() + "\nTaakNr: " + task.getTaskNumber());
+            System.out.println("|" + task.getTaskName() + " |TaakNr: " + task.getTaskNumber() + " |benodigde uren: " + task.getRequiredTime());
         }
     }
 
@@ -65,15 +65,23 @@ public class TaskList {
         return null;
     }
 
-    // aanmaken en toevoegen van een taak met alleen een naam
-    public void createTaskWork(String taskName, Boolean whichTask){
-        if(taskName.replaceAll("\\s", "").length() != 0 && whichTask){
+    // aanmaken en toevoegen van een Werktaak
+    public void createTaskWork(String taskName){
+        int requiredTime = 0;
 
+        System.out.println("Heeft u benodigde uren? J/N: ");
+        String keuze = scanner.nextLine();
+        if(keuze.equalsIgnoreCase("j")) {
+            System.out.println("Hoeveel uren?: ");
+            requiredTime += scanner.nextInt();
+            scanner.nextLine();
+        }
+        if(taskName.replaceAll("\\s", "").length() != 0 && requiredTime == 0){
             Task task = new TaskWork(taskName, getUniqueTaskNumber());
             addTask(task);
         }
-        else if(taskName.replaceAll("\\s", "").length() != 0 && !whichTask){
-            Task task = new TaskWork(taskName, getUniqueTaskNumber());
+        else if(taskName.replaceAll("\\s", "").length() != 0 && requiredTime > 0){
+            Task task = new TaskWork(taskName, requiredTime, getUniqueTaskNumber());
             addTask(task);
         }
         else{
@@ -81,8 +89,8 @@ public class TaskList {
         }
     }
 
-    // aanmaken en toevoegen van een taak met naam en benodigde tijd
-    public void createTaskSchool(String taskName,String subject, Boolean whichTask){
+    // aanmaken en toevoegen van een Schooltaak
+    public void createTaskSchool(String taskName,String subject){
 
         int requiredTime = 0;
 
@@ -93,11 +101,11 @@ public class TaskList {
             requiredTime = scanner.nextInt();
             scanner.nextLine();
         }
-        if(taskName.replaceAll("\\s", "").length() != 0 && whichTask){
+        if(taskName.replaceAll("\\s", "").length() != 0 && requiredTime == 0){
             Task task = new TaskSchool(taskName, subject, getUniqueTaskNumber());
             addTask(task);
         }
-        else if(taskName.replaceAll("\\s", "").length() != 0 && !whichTask){
+        else if(taskName.replaceAll("\\s", "").length() != 0 && requiredTime != 0){
             Task task = new TaskSchool(taskName, subject, requiredTime, getUniqueTaskNumber());
             addTask(task);
         }

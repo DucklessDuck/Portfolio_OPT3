@@ -20,7 +20,9 @@ public class Menu {
                     1. Taak voor school aanmaken
                     2. Taak voor werk aanmaken
                     3. Takenlijst ophalen
-                    4. Exit
+                    4. 
+                    5.
+                    6. Exit
                     """);
 
             int keuze = scanner.nextInt();
@@ -30,18 +32,20 @@ public class Menu {
                 setName();
                     System.out.println("Naam van het vak?");
                     String subject = scanner.nextLine();
-                    taskList.createTaskSchool(name, subject, true);
+                    taskList.createTaskSchool(name, subject);
             }
 
             if(keuze == 2){
                 setName();
-                    Task task = new TaskWork(name, taskList.getUniqueTaskNumber());
-                    taskList.createTaskWork(name,false);
-                    taskList.addTask(task);
+                    taskList.createTaskWork(name);
             }
 
             if(keuze == 3){
                 taskList.display();
+            }
+            if(keuze == 6){
+                loop = false;
+                System.out.println("Programma wordt afgesloten, BYE!");
             }
         }
     }

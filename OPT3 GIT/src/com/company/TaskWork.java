@@ -11,7 +11,7 @@ public class TaskWork extends Task{
     }
 
     @Override
-    public String getNameTask() {
+    public String prepareGetNameTask() {
         return " (Work)";
     }
 
