@@ -1,67 +1,82 @@
 package timer;
 
 
-import java.util.Scanner;
+public class TaskTimer {
 
-public class TaskTimer{
+    private State uses;
 
-    long startTime;
-    long finishTime;
-    long passedTime;
-    long elapsedTime;
-    Scanner scanner = new Scanner(System.in);
+    private long startTime;
+    private long finishTime;
+    private long elapsedTime;
 
+    public TaskTimer() {
 
-    //Visualisation timer
-    public void displayTime(){
-        // ...
+        uses = new OffState(this);
     }
+
+    public void changeState(State state){
+        this.uses = state;
+    }
+
 
     // start de timer van een bepaalde taak
     public void startTimer(){
-        System.out.println("""
-                Start de timer van deze taak?\s
-                1. Ja\s
-                2. Nee""");
-        int choice = scanner.nextInt();
-
-        if(choice == 1){
-            startTime = System.currentTimeMillis();
-            System.out.println("De timer is gestart!");
+        if(uses.askStart()){
+            if(!uses.isRunning()){
+                System.out.println(uses.start());
+                changeState(new OnState(this));
+                startTime = System.currentTimeMillis();
+            }
+            else{
+                System.out.println("De timer staat al aan. ");
+            }
         }
 
-        else if(choice == 2){
-            System.out.println("De timer is niet gestart.");
+        else if(!uses.askStart()){
+            if(uses.isRunning()){
+                pauseTimer();
+            }
+            else {
+                System.out.println("De timer is niet gestart.");
+            }
         }
 
         else{
-            System.out.println("Probeer opnieuw");
+            System.out.println("Verkeerde invoer, probeer opnieuw: ");
             startTimer();
         }
     }
 
     // Pauzeert de timer van een bepaalde taak
     public void pauseTimer() {
-        System.out.println("""
-                De timer op pauze zetten?
-                1. Ja
-                2. Nee""");
-        int choice = scanner.nextInt();
-
-        if(choice == 1){
-            finishTime = System.currentTimeMillis();
-            System.out.println("De timer is gepauzeerd!");
+        if(uses.askPause()){
+            if(uses.isRunning()){
+                System.out.println(uses.stop());
+                changeState(new OffState(this));
+                finishTime = System.currentTimeMillis();
+            }
+            else{
+                System.out.println("De timer is al gepauzeerd. ");
+                System.out.println();
+            }
         }
 
-        else if(choice == 2){
-            System.out.println("De timer is niet gepauzeerd.");
+        else if(!uses.askPause()){
+            if(uses.isRunning()){
+                startTimer();
+            }
+            else {
+                System.out.println("De timer is niet gepauzeerd. ");
+                System.out.println();
+            }
         }
 
         else{
-            System.out.println("Probeer opnieuw");
+            System.out.println("Verkeerde invoer, probeer opnieuw: ");
             pauseTimer();
         }
     }
+
 
     // Rekent milliseconden om naar seconden
     public long getTimeInSeconds(){
@@ -92,11 +107,13 @@ public class TaskTimer{
 
     public void calculateTime(){
         elapsedTime = finishTime - startTime;
-        passedTime += elapsedTime;
 
         getTimeInSeconds();
+        System.out.println("=");
         getTimeInMinutes();
+        System.out.println("=");
         getTimeInHours();
+        System.out.println();
     }
 
 

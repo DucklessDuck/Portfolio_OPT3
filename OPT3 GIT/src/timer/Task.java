@@ -6,6 +6,7 @@ public abstract class Task {
     private String taskName;
     private int requiredTime;
     private int taskNumber;
+    TaskTimer timer;
 
 
     public Task(String taskName, int taskNumber){
@@ -13,6 +14,7 @@ public abstract class Task {
         this.requiredTime = 0;
         this.hoursPassed = 0;
         this.taskNumber = taskNumber;
+        timer = new TaskTimer();
     }
 
     public Task(String taskName, int requiredTime, int taskNumber){
@@ -20,17 +22,10 @@ public abstract class Task {
         this.requiredTime = requiredTime;
         this.hoursPassed = 0;
         this.taskNumber = taskNumber;
+        timer = new TaskTimer();
     }
 
     public abstract String prepareGetNameTask();
-
-
-    public Boolean checkTask(Task task){
-        if(getRequiredTime() != 0) {
-            return (task.getRequiredTime() <= getHoursPassed());
-        }
-        else return false;
-    }
 
     public void setTaskName(String taskName){
         this.taskName = taskName;
@@ -39,12 +34,12 @@ public abstract class Task {
     //Haalt de naam van de taak op
     public String getTaskName(){
         if(this instanceof TaskSchool){
-            return "Taaknaam: " + taskName + prepareGetNameTask();
+            return taskName + prepareGetNameTask();
         }
         else if(this instanceof TaskWork){
-            return "Taaknaam: " + taskName + prepareGetNameTask();
+            return taskName + prepareGetNameTask();
         }
-        return "Taaknaam: " + taskName;
+        return taskName;
     }
 
     //  Nummer van taak ophalen
@@ -57,19 +52,18 @@ public abstract class Task {
         this.requiredTime = requiredTime;
     }
 
-    //toevoegen van gewerkte uren
-    public void setHoursPassed(int hoursPassed){
-        this.hoursPassed = hoursPassed;
-    }
-
     //Haalt de gemaakte uren op
     public long getHoursPassed(){
-        return hoursPassed;
+        return hoursPassed += timer.getTimeInHours();
     }
 
     //Haalt de benodigde uren op
     public int getRequiredTime(){
         return requiredTime;
+    }
+
+    public TaskTimer getTimer(){
+        return timer;
     }
 
 

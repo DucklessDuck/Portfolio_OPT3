@@ -4,16 +4,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskList {
-    private Boolean statusDone;
     private ArrayList<Task> taskList = new ArrayList<>();
-    private static int uniqueTaskNumber = 0;
+    private static int uniqueTaskNumber = 1;
 
     Scanner scanner = new Scanner(System.in);
 
+    public TaskList(){
+        Task task1 = new TaskSchool("Taak voor school" , "OPT3", 20, getUniqueTaskNumber());
+        Task task2 = new TaskWork("Taak voor werk" , 24, getUniqueTaskNumber());
+        addTask(task1);
+        addTask(task2);
+    }
+
     public void display() {
         for(Task task : taskList){
-            System.out.println("|" + task.getTaskName() + " |TaakNr: " + task.getTaskNumber() + " |benodigde uren: " + task.getRequiredTime());
+            System.out.println("Taaknr" + task.getTaskNumber() + " Taaknaam: " + task.getTaskName());
         }
+        System.out.println();
     }
 
     // Maakt de taak aan en voegt de taak toe aan de tasklist
@@ -27,15 +34,17 @@ public class TaskList {
     }
 
     // Wijzigt de naam van de taak
-    public void renameTask(String taskName){
+    public void renameTask(int taskNumber, String taskName){
         for (Task task : taskList) {
-            if (task.getTaskName().equals(taskName)) {
+            if (task.getTaskNumber() == taskNumber) {
                 task.setTaskName(taskName);
             }
             else{
                 System.out.println("Taak niet gevonden.");
             }
         }
+
+
     }
 
     // Aanmaken unieknummer voor nieuwe taak
@@ -43,23 +52,12 @@ public class TaskList {
         return uniqueTaskNumber++;
     }
 
-    // Haalt de gemaakte uren op van alle taken
-    public int getTotalHours() {
-        int totalHours = 0;
-        for(Task task : taskList){
-            totalHours += task.getHoursPassed();
-        }
-        return totalHours;
-    }
 
     // Haalt de taak op uit de lijst
     public Task getTask(int taskNumber) {
         for (Task task : taskList) {
             if (task.getTaskNumber() == taskNumber) {
                 return task;
-            }
-            else{
-                return null;
             }
         }
         return null;
@@ -108,16 +106,8 @@ public class TaskList {
         }
         else{
             return 0;
-        }
-    }
 
-    //checkt de status van de taak
-    public Boolean checkStatusTask(Task task){
-        if(task.getRequiredTime() < task.getHoursPassed()) {
-            statusDone = true;
-        }
-        else statusDone = task.getHoursPassed() == task.getRequiredTime();
-        return statusDone;
+          }
     }
-
 }
+
