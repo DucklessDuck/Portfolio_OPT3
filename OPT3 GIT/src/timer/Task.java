@@ -57,10 +57,6 @@ public abstract class Task {
         return hoursPassed += timer.getTimeInHours();
     }
 
-    //Haalt de benodigde uren op
-    public int getRequiredTime(){
-        return requiredTime;
-    }
 
     public TaskTimer getTimer(){
         return timer;
