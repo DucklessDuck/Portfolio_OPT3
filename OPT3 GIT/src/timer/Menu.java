@@ -57,7 +57,6 @@ public class Menu {
                 if (choice == 0) {
                     loop = false;
                     System.out.println("Programma wordt afgesloten, BYE!");
-                }
             }
         } catch (InputMismatchException e){
             System.out.println("Invalid, try again. ");
