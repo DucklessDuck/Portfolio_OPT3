@@ -25,6 +25,6 @@
 hs_err_pid*
 
 # development-omgeving IntelliJ
-.idea
+*.idea
 *.iml
 
