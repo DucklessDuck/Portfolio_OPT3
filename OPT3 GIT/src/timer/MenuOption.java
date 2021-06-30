@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class MenuOption {
     private TaskList taskList;
-    String name;
     Scanner scanner = new Scanner(System.in);
 
     public MenuOption(){
@@ -27,14 +26,16 @@ public class MenuOption {
     }
 
     public void option1(){
-        setName();
+        System.out.println("Naam van de taak?:\n");
+        String name = scanner.nextLine();
         System.out.println("Naam van het vak?");
         String subject = scanner.nextLine();
         taskList.createTaskSchool(name, subject);
     }
 
     public void option2(){
-        setName();
+        System.out.println("Naam van de taak?:\n");
+        String name = scanner.nextLine();
         taskList.createTaskWork(name);
     }
 
@@ -103,12 +104,6 @@ public class MenuOption {
         if(choiceTask != 0) {
             taskList.getTask(choiceTask).getTimer().calculateTime();
         }
-    }
-
-
-    private void setName(){
-        System.out.println("Naam van de taak?:\n");
-        name = scanner.nextLine();
     }
 
 }
